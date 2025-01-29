@@ -32,13 +32,13 @@ for category in clothing_items.keys():
 def prepare_clothes(clothing_items, base_size):
     """Resize clothing items to fit appropriate regions on the body."""
     positions = {
-        "tops": (30, -20),     # Position of tops (x, y) on the base image
-        "bottoms": (45, 260)   # Position of bottoms
+        "tops": (120, -100),     # Position of tops (x, y) on the base image
+        "bottoms": (170, 540)   # Position of bottoms
     }
     
     sizes = {
-        "tops": (335,655),     # Size (width, height) of tops
-        "bottoms": (300, 520)   # Size of bottoms
+        "tops": (1100,1500),     # Size (width, height) of tops
+        "bottoms": (1000, 1270)   # Size of bottoms
     }
     
     prepared_clothes = {}
