@@ -63,11 +63,6 @@ def generate_random_outfit(base_image, prepared_clothes):
     
     return outfit_image
 
-# Prepare the clothes (resize and set positions)
 prepared_clothes = prepare_clothes(clothing_items, base_image.size)
-
-# Generate a random outfit
 outfit = generate_random_outfit(base_image, prepared_clothes)
-
-# Save and display the result
 outfit.show()
