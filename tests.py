@@ -1,4 +1,4 @@
-mport pytest
+import pytest
 from PIL import Image
 import os
 from main import (  
