@@ -70,11 +70,5 @@ jobs:
           
       - name: Lint package
         run: |
-          lintian outfit-generator-v1.0.0.deb > lintian-output.txt
+          lintian outfit-generator-v1.0.0.deb
           
-      - name: Save lint results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-results
-          path: lintian-output.txt
