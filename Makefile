@@ -5,7 +5,6 @@ TEMP_DIR=temp
 PYTHON=python3
 PIP=pip3
 
-# Main targets
 build:
 	@echo "Python application doesn't need compilation"
 
@@ -30,7 +29,6 @@ clean:
 	rm -rf */__pycache__
 	rm -f *.deb
 
-# Packaging targets
 build-deb:
 	@echo "Building Debian package..."
 	mkdir -p $(TEMP_DIR)/DEBIAN
@@ -38,20 +36,17 @@ build-deb:
 	mkdir -p $(TEMP_DIR)/usr/share/$(APP_NAME)
 	mkdir -p $(TEMP_DIR)/usr/share/$(APP_NAME)/clothes
 	
-	# Create control file
 	@echo "Package: $(APP_NAME)" > $(TEMP_DIR)/DEBIAN/control
 	@echo "Version: 1.0.0" >> $(TEMP_DIR)/DEBIAN/control
 	@echo "Architecture: all" >> $(TEMP_DIR)/DEBIAN/control
 	@echo "Maintainer: Your Name <your.email@example.com>" >> $(TEMP_DIR)/DEBIAN/control
 	@echo "Description: Outfit Generator Application" >> $(TEMP_DIR)/DEBIAN/control
 	
-	# Copy files
 	cp main.py $(TEMP_DIR)/usr/bin/$(APP_NAME)
 	chmod +x $(TEMP_DIR)/usr/bin/$(APP_NAME)
 	cp -r clothes $(TEMP_DIR)/usr/share/$(APP_NAME)/
 	cp base_image.png $(TEMP_DIR)/usr/share/$(APP_NAME)/
 	
-	# Build package
 	dpkg-deb --build --root-owner-group $(TEMP_DIR) $(DEB_PACKAGE)
 
 lint:
@@ -63,14 +58,4 @@ install:
 uninstall:
 	sudo dpkg -r $(APP_NAME)
 
-# Docker targets
-docker-image:
-	docker build -t $(APP_NAME):latest .
 
-docker-run:
-	docker run -it --rm \
-		-v $(PWD)/clothes:/app/clothes \
-		-v $(PWD)/base_image.png:/app/base_image.png \
-		$(APP_NAME):latest
-
-.PHONY: build test run clean build-deb lint install uninstall docker-image docker-run
