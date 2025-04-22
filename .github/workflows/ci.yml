@@ -5,8 +5,7 @@ jobs:
   test:
     name: "Run Tests"
     runs-on: [self-hosted, linux]
-    container: ubuntu:22.04
-    timeout-minutes: 5
+    container: ubuntu:latest
     steps:
       - uses: actions/checkout@v4
 
@@ -20,51 +19,51 @@ jobs:
           pip3 install --upgrade pillow
           python3 -m pytest tests.py
 
-#  build-deb:
- #   name: "Build Debian Package"
-  #  runs-on: [self-hosted, linux]
-   # container: ubuntu:latest
-    #steps:
-     # - uses: actions/checkout@v4
-      #- name: Build package
-       # run: |
-        #  apt-get update
-         # apt-get install -y make python3 python3-pytest
+  build-deb:
+    name: "Build Debian Package"
+    runs-on: [self-hosted, linux]
+    container: ubuntu:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build package
+        run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
           #make build-deb
           
-#      - name: Upload artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: outfit-generator-deb
-#          path: ./outfit-generator-v1.0.0.deb
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: outfit-generator-deb
+          path: ./outfit-generator-v1.0.0.deb
 
- # lint:
- #   name: "Lint Package"
- #   runs-on: [self-hosted, linux]
- #   container: ubuntu:latest
- #   steps:
- #     - uses: actions/checkout@v4
- #     
- #     - name: Install lintian
- #       run: |
- #         apt-get update
- #         apt-get install -y lintian
- #         
- #     - name: Download artifact
- #       uses: actions/download-artifact@v4
- #       with:
- #         name: outfit-generator-deb
- #         
-  #    - name: Lint package
-  #      run: |
-  #        apt-get update
-  #        apt-get install -y make python3 python3-pytest
-  #        make lint
+  lint:
+    name: "Lint Package"
+    runs-on: [self-hosted, linux]
+    container: ubuntu:latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install lintian
+        run: |
+          apt-get update
+          apt-get install -y lintian
           
- #     - name: Save lint results
-  #      if: always()
-   #     uses: actions/upload-artifact@v4
-   #     with:
-   #       name: lint-results
-   #       path: |
-   #         lintian-output.txt
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: outfit-generator-deb
+          
+      - name: Lint package
+        run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
+          make lint
+          
+      - name: Save lint results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-results
+          path: |
+            lintian-output.txt
