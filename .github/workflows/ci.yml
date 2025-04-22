@@ -12,6 +12,10 @@ jobs:
 
       - name: Run tests
         run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
+          apt install python3-pip -y
+          apt-get install python3-pytest -y
           make test
 
   build-deb:
@@ -22,6 +26,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build package
         run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
           make build-deb
           
       - name: Upload artifact
@@ -49,6 +55,8 @@ jobs:
           
       - name: Lint package
         run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
           make lint
           
       - name: Save lint results
