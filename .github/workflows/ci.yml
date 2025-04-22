@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   test:
     name: "Run Tests"
-    runs-on: [self-hosted, linux, CPSC334]
+    runs-on: [self-hosted, linux]
     container: ubuntu:22.04
     timeout-minutes: 5
     steps:
@@ -16,7 +16,7 @@ jobs:
 
   build-deb:
     name: "Build Debian Package"
-    runs-on: [self-hosted, linux, CPSC334]
+    runs-on: [self-hosted, linux]
     container: ubuntu:latest
     needs: test
     timeout-minutes: 5
@@ -34,7 +34,7 @@ jobs:
 
   lint:
     name: "Lint Package"
-    runs-on: [self-hosted, linux, CPSC334]
+    runs-on: [self-hosted, linux]
     container: ubuntu:latest
     needs: build-deb
     timeout-minutes: 5
