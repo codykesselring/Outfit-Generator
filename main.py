@@ -73,18 +73,24 @@ def next_clothing(category):
         clothing_index[category] = (clothing_index[category] + 1) % len(clothing_items[category])
         update_outfit()
 
-# Create GUI
-root = tk.Tk()
-root.title("Clothing Selector")
+if __name__ == "__main__":
+    import sys
+    test_mode = "--test" in sys.argv
 
-# Display area
-outfit = generate_outfit()
-outfit_tk = ImageTk.PhotoImage(outfit)
-outfit_label = Label(root, image=outfit_tk)
-outfit_label.pack()
+    root = tk.Tk()
+    root.title("Clothing Selector")
 
-# Control buttons
-for category in clothing_items.keys():
-    Button(root, text=f"Next {category}", command=lambda c=category: next_clothing(c)).pack()
+    # Display area
+    outfit = generate_outfit()
+    outfit_tk = ImageTk.PhotoImage(outfit)
+    outfit_label = Label(root, image=outfit_tk)
+    outfit_label.pack()
 
-root.mainloop()
+    # Control buttons
+    for category in clothing_items.keys():
+        Button(root, text=f"Next {category}", command=lambda c=category: next_clothing(c)).pack()
+
+    if test_mode:
+        root.after(1000, root.destroy)
+
+    root.mainloop()
