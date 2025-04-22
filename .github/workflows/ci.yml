@@ -2,6 +2,18 @@ name: Outfit Generator CI/CD
 on: [push, pull_request]
 
 jobs:
+  build:
+    name: "Builds project"
+    runs-on: [self-hosted, linux]
+    container: ubuntu:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run build
+        run: |
+          apt-get update
+          apt-get install -y make python3 python3-pytest
+          make build
+        
   test:
     name: "Run Tests"
     runs-on: [self-hosted, linux]
