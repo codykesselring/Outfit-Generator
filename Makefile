@@ -2,8 +2,6 @@
 APP_NAME=outfit-generator
 DEB_PACKAGE=$(APP_NAME)-v1.0.0.deb
 TEMP_DIR=temp
-PYTHON=python3
-PIP=pip3
 
 build:
 	@echo "Python application doesn't need compilation"
@@ -11,16 +9,16 @@ build:
 test:
 	sudo apt update
 	sudo apt install -y python3 python3-pip python3-tk python3-pil.imagetk
-	$(PIP) install pillow pytest flake8
-	$(PIP) install --upgrade pillow
-	$(PYTHON) -m pytest tests.py
+	pip3 install pillow pytest flake8
+	pip3 install --upgrade pillow
+	python3 main.py
 
 run:
 	sudo apt update
 	sudo apt install -y python3 python3-pip python3-tk python3-pil.imagetk
-	$(PIP) install pillow pytest flake8
-	$(PIP) install --upgrade pillow
-	$(PYTHON) main.py
+	pip3 install pillow pytest flake8
+	pip3 install --upgrade pillow
+	python3 main.py
 
 clean:
 	@echo "Cleaning up..."
@@ -39,7 +37,7 @@ build-deb:
 	@echo "Package: $(APP_NAME)" > $(TEMP_DIR)/DEBIAN/control
 	@echo "Version: 1.0.0" >> $(TEMP_DIR)/DEBIAN/control
 	@echo "Architecture: all" >> $(TEMP_DIR)/DEBIAN/control
-	@echo "Maintainer: Your Name <your.email@example.com>" >> $(TEMP_DIR)/DEBIAN/control
+	@echo "Maintainer: Your Name <codykesselring@gmail.com>" >> $(TEMP_DIR)/DEBIAN/control
 	@echo "Description: Outfit Generator Application" >> $(TEMP_DIR)/DEBIAN/control
 	
 	cp main.py $(TEMP_DIR)/usr/bin/$(APP_NAME)
