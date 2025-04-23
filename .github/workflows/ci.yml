@@ -70,5 +70,6 @@ jobs:
           
       - name: Lint package
         run: |
-          lintian outfit-generator-v1.0.0.deb
+          dpkg -i outfit-generator-v1.0.0.deb
+          -lintian outfit-generator-v1.0.0.deb
           
