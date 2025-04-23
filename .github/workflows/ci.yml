@@ -51,6 +51,7 @@ jobs:
 
   lint:
     name: "Lint Package"
+    needs: build-deb 
     runs-on: [self-hosted, linux]
     container: ubuntu:latest
     steps:
