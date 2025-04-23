@@ -51,25 +51,23 @@ jobs:
 
   lint:
     name: "Lint Package"
-    needs: build-deb  # Ensure this runs after build-deb
     runs-on: [self-hosted, linux]
     container: ubuntu:latest
     steps:
       - uses: actions/checkout@v4
       
-      - name: Download Debian package
-        uses: actions/download-artifact@v4
-        with:
-          name: outfit-generator-deb
-          path: ./
-          
       - name: Install lintian
         run: |
           apt-get update
           apt-get install -y lintian
           
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: outfit-generator-deb
+          
       - name: Lint package
         run: |
-          dpkg -i outfit-generator-v1.0.0.deb
-          -lintian outfit-generator-v1.0.0.deb
-          
+          apt-get update
+          apt-get install -y make python3 python3-pytest
+          make lint
